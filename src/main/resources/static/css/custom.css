@@ -1,0 +1,36 @@
+.card-form{
+    width: 30%;
+}
+
+.btn-primary{
+    background: #4F682B;
+    border: none;
+}
+
+.btn-primary:hover{
+    background: #3d5122;
+}
+
+.btn-secondary{
+    background: #805537;
+    border: none;
+}
+
+.btn-secondary:hover{
+    background: #614029;
+}
+
+.header{
+    background: #E09765;
+}
+
+.background-body{
+    background: #FAEEEA;
+}
+
+@media(max-width: 800px){
+    .card-form{
+        width: 80%;
+    }
+}
+
