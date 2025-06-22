@@ -13,6 +13,7 @@
                     <th scope="col">ID</th>
                     <th scope="col">Nome</th>
                     <th scope="col">Email</th>
+                    <th scope="col">Funções</th>
                     <th scope="col">Status</th>
                 </tr>
             </thead>
@@ -21,6 +22,11 @@
                     <td scope="row" th:text="${user.id}"></td>
                     <td scope="row" th:text="${user.name}"></td>
                     <td scope="row" th:text="${user.email}"></td>
+                    <td scope="row">
+                        <ul>
+                            <li th:each="role : ${user.roles}" th:text="${role}"></li>
+                        </ul>
+                    </td>
                     <td>
                         <form th:action="@{/user/alterarStatus}" method="POST" class="d-flex align-items-center">
                             <input type="hidden" name="email" th:value="${user.email}" />

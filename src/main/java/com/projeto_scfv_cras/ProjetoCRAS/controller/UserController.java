@@ -2,9 +2,11 @@ package com.projeto_scfv_cras.ProjetoCRAS.controller;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.projeto_scfv_cras.ProjetoCRAS.model.User;
 import com.projeto_scfv_cras.ProjetoCRAS.service.UserService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.security.core.Authentication;
 
 
@@ -21,12 +26,17 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/register")
-    public String register() {
+    public String register(Model model) {
+        User user = new User();
+        model.addAttribute("user", user);
         return "user/registerUser";
     }
 
     @PostMapping("/saveUser")
-    public String saveUser(@ModelAttribute User user, Model model) {
+    public String saveUser(@ModelAttribute @Valid User user, BindingResult result, Model model) {
+        if(result.hasErrors()){
+            return "user/registerUser";
+        }
         userService.saveUser(user);
         String message = "Seu usuário foi registrado com sucesso! Aguarde até que o administrador aprove seu cadastro! Contato: admin@gmail.com";
         model.addAttribute("msg", message);

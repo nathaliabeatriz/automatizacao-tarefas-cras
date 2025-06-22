@@ -56,7 +56,6 @@ public class UserServiceImpl implements UserService, UserDetailsService{
             }
 
             springUser = new org.springframework.security.core.userdetails.User(email, user.getPassword(), ga);
-            System.out.println(springUser + "aaaaaaaaaaaaaaaaaaa");
         }
 
         return springUser;
