@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<th:block th:replace="~{/../fragments/head :: head('Oficinas')}"></th:block>
+
+<body>
+    <th:block th:replace="~{/../fragments/head :: header()}"></th:block>
+    <div class="container">
+        <div class="col-md-12 mb-5">
+            <h2 class="mb-4 fw-normal">Cadastrar Oficina</h2>
+            <p class="fs-6">Preencha os campos a seguir para cadastrar uma nova oficina:</p>
+        </div>
+
+        <form th:action="@{/oficinas/save}" th:object="${oficina}" method="POST">
+            <div class="form-group row mb-4">
+                <label for="nome" class="col-sm-2 col-form-label">Nome:</label>
+                <div class="col-sm-6">
+                    <input type="text" th:field="*{nome}" class="form-control"
+                        placeholder="Digite o nome da oficina">
+                    <p th:if="${#fields.hasErrors('nome')}" th:errorclass="text-danger" th:errors="*{nome}" />
+                </div>
+            </div>
+
+            <div class="form-group row mb-4">
+                <label for="qtdVagas" class="col-sm-2 col-form-label">Quantidade de vagas:</label>
+                <div class="col-sm-6">
+                    <input type="number" th:field="*{qtdVagas}" class="form-control">
+                    <p th:if="${#fields.hasErrors('qtdVagas')}" th:errorclass="text-danger" th:errors="*{qtdVagas}" />
+                </div>
+            </div>
+
+            <div class="form-group row mb-4">
+                <label for="horarioInicio" class="col-sm-2 col-form-label">Horário de início:</label>
+                <div class="col-sm-6">
+                    <input type="time" th:field="*{horarioInicio}" class="form-control">
+                    <p th:if="${#fields.hasErrors('horarioInicio')}" th:errorclass="text-danger" th:errors="*{horarioInicio}" />
+                </div>
+            </div>
+
+            <div class="form-group row mb-4">
+                <label for="horarioTermino" class="col-sm-2 col-form-label">Horário de término:</label>
+                <div class="col-sm-6">
+                    <input type="time" th:field="*{horarioTermino}" class="form-control">
+                    <p th:if="${#fields.hasErrors('horarioTermino')}" th:errorclass="text-danger" th:errors="*{horarioTermino}" />
+                </div>
+            </div>
+
+            <div class="form-group row mb-5">
+                <label for="horarioTermino" class="col-sm-2 col-form-label">Dia da semana:</label>
+                <div class="col-sm-6">
+                    <select th:field="*{diaSemana}" class="form-control">
+                        <option value="" selected>Selecione um dia</option>
+                        <option value="Segunda">Segunda</option>
+                        <option value="Terça">Terça</option>
+                        <option value="Quarta">Quarta</option>
+                        <option value="Quinta">Quinta</option>
+                        <option value="Sexta">Sexta</option>
+                        <option value="Sábado">Sábado</option>
+                        <option value="Domingo">Domingo</option>
+                    </select>
+                    <p th:if="${#fields.hasErrors('diaSemana')}" th:errorclass="text-danger" th:errors="*{diaSemana}" />
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary col-sm-2 mb-4"> Cadastrar Oficina</button>
+        </form>
+    </div>
+</body>

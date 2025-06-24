@@ -73,6 +73,12 @@ a{
     width: 45px;
 }
 
+.form-control{
+    background-color: #F2F2F2;
+    border-color: #B7B7B7;
+    border-radius: 3px;
+}
+
 @media(max-width: 800px){
     .card-form{
         width: 80%;
