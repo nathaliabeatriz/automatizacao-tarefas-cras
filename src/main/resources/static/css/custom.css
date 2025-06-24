@@ -1,9 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Neucha&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+*{
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+}
+
+a{
+    text-decoration: none;
+}
+
 .card-form{
     width: 30%;
 }
 
 .btn-primary{
-    background: #4F682B;
+    background: #596C2A;
     border: none;
 }
 
@@ -21,11 +32,45 @@
 }
 
 .header{
-    background: #E09765;
+    background: #B06749;
+    height: 10vh;
 }
 
 .background-body{
     background: #FAEEEA;
+}
+
+.hamburguer-menu{
+    border: none;
+}
+
+.div-menu{
+    background-color: #1E1F21;
+    color: #ffffff;
+}
+
+.menu-usuarios{
+    background: #DDFC9C;
+    box-shadow: -4px 4px 4px rgba(0, 0, 0, 0.2);
+}
+
+.menu-oficinas{
+    background: #C7CDF5;
+    box-shadow: -4px 4px 4px rgba(0, 0, 0, 0.2);
+}
+
+.menu-usuarios:hover{
+    background: #bfdf6c;
+    transition: 0.3s;
+}
+
+.menu-oficinas:hover{
+    background: #96A4ED;
+    transition: 0.3s;
+}
+
+.icons-navegacao{
+    width: 45px;
 }
 
 @media(max-width: 800px){
