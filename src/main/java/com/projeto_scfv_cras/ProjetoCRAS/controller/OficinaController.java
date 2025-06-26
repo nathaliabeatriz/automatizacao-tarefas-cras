@@ -1,12 +1,16 @@
 package com.projeto_scfv_cras.ProjetoCRAS.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.projeto_scfv_cras.ProjetoCRAS.model.Oficina;
 import com.projeto_scfv_cras.ProjetoCRAS.service.OficinaService;
@@ -29,12 +33,48 @@ public class OficinaController {
         return "oficina/create";
     }
 
+    @GetMapping("oficinas/buscar")
+    public String buscarOficinas(@RequestParam(required = false) String nome, Model model){
+        List<Oficina> oficinas;
+        if(nome != null && !nome.isBlank()){
+            oficinas = oficinaService.getOficinaByNome(nome);
+        } else{
+            oficinas = oficinaService.getAllOficinas();
+        }
+        model.addAttribute("oficinas", oficinas);
+        model.addAttribute("qtdResultados", oficinas.size());
+        return "oficina/buscarOficinas";
+    }
+
+    @GetMapping("oficinas/{id}")
+    public String getOficina(@PathVariable Integer id, Model model){
+        Oficina oficina = oficinaService.getOficinaById(id);
+        model.addAttribute("oficina", oficina);
+        return "oficina/infoOficina";
+    }
+
+    @GetMapping("oficinas/edit/{id}")
+    public String editarOficina(@PathVariable Integer id, Model model){
+        Oficina oficina = oficinaService.getOficinaById(id);
+        model.addAttribute("oficina", oficina);
+        return "oficina/edit";
+    }
+
     @PostMapping("oficinas/save")
     public String salvarOficina(@ModelAttribute @Valid Oficina oficina, BindingResult result){
         if(result.hasErrors()){
+            if(oficina.getId() != null){
+                return "oficina/edit";
+            }
             return "oficina/create";
         }
         oficinaService.saveOficina(oficina);
         return "redirect:/oficinas";
+    }
+
+    @GetMapping("oficinas/delete/{id}")
+    public String deletarOficina(@PathVariable Integer id){
+        oficinaService.deleteOficinaById(id);
+        return "redirect:/oficinas/buscar";
     }
 }
