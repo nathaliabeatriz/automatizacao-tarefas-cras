@@ -92,7 +92,8 @@ public class UserControllerTest {
                         .with(csrf())
                         .flashAttr("user", user))
                 .andExpect(status().isOk())
-                .andExpect(view().name("user/registerUser"));
+                .andExpect(view().name("user/registerUser"))
+                .andExpect(model().attributeHasErrors("user"));;
 
         verify(userService, never()).saveUser(any(User.class));
     }

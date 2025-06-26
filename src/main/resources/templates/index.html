@@ -8,7 +8,7 @@
     <th:block th:replace="~{/../fragments/head :: header()}"></th:block>
     <div class="container">
         <div class="col-md-12 text-center mb-5">
-            <h2 class="mb-4 fw-normal">Seja Bem-Vindo(a) <span class="fw-normal" sec:authentication="principal.name"></span></h2>
+            <h2 class="mb-4 fw-normal">Seja Bem-Vindo(a) <span class="fw-normal" th:text="${#authentication.principal?.name != null} ? ${#authentication.principal.name} : ${#authentication.name}"></span></h2>
             <p class="fs-5">Escolha um dos módulos abaixo para prosseguir:</p>
         </div>
 

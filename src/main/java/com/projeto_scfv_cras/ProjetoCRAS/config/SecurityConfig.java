@@ -30,6 +30,8 @@ public class SecurityConfig {
 				.requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
                 .requestMatchers("/home", "/register", "/saveUser", "/login").permitAll()
 				.requestMatchers("user/listarUsuarios").hasAuthority("Admin")
+				.requestMatchers("/", "/oficinas", "/oficinas/buscar", "/oficinas/detalhes/*").hasAnyAuthority("Admin", "Funcionario", "Tecnico")
+				.requestMatchers("/oficinas/**").hasAnyAuthority("Admin", "Funcionario")
                 .anyRequest().authenticated())
                 .formLogin(form -> form
 					.loginPage("/login")

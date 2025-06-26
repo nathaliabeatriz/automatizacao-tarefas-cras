@@ -43,14 +43,14 @@ public class OficinaController {
         }
         model.addAttribute("oficinas", oficinas);
         model.addAttribute("qtdResultados", oficinas.size());
-        return "oficina/buscarOficinas";
+        return "oficina/buscar";
     }
 
-    @GetMapping("oficinas/{id}")
+    @GetMapping("oficinas/detalhes/{id}")
     public String getOficina(@PathVariable Integer id, Model model){
         Oficina oficina = oficinaService.getOficinaById(id);
         model.addAttribute("oficina", oficina);
-        return "oficina/infoOficina";
+        return "oficina/detalhes";
     }
 
     @GetMapping("oficinas/edit/{id}")
@@ -69,7 +69,7 @@ public class OficinaController {
             return "oficina/create";
         }
         oficinaService.saveOficina(oficina);
-        return "redirect:/oficinas";
+        return "redirect:/oficinas/buscar";
     }
 
     @GetMapping("oficinas/delete/{id}")

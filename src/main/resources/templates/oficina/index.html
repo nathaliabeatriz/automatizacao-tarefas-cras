@@ -13,7 +13,7 @@
         </div>
 
         <div class="row g-4">
-            <div class="col-12 col-md-4">
+            <div sec:authorize="hasAnyAuthority('Admin', 'Funcionario')" class="col-12 col-md-4">
                 <a th:href="@{oficinas/create}">
                     <div class="d-flex align-items-center text-black p-4 justify-content-center menu-oficinas">
                         <img class="icons-navegacao mb-0" th:src="@{/img/icons/registro.png}" alt="Cadastrar oficina">

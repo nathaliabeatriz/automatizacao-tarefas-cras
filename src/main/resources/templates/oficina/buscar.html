@@ -36,7 +36,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr style="cursor: pointer;" th:each="oficina : ${oficinas}" th:onclick="'window.location.href=\'/oficinas/' + ${oficina.id} + '\''" >
+                    <tr style="cursor: pointer;" th:each="oficina : ${oficinas}" th:onclick="'window.location.href=\'/oficinas/detalhes/' + ${oficina.id} + '\''" >
                         <td th:text="${oficina.nome}"></td>
                     </tr>
                 </tbody>
