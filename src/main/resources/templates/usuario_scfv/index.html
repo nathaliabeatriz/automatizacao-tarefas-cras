@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<th:block th:replace="~{/../fragments/head :: head('Usuários')}"></th:block>
+
+<body>
+    <th:block th:replace="~{/../fragments/head :: header()}"></th:block>
+    <div class="container">
+        <div class="col-md-12 mb-5">
+            <h2 class="mb-4 fw-normal">Usuários</h2>
+            <p class="fs-6">Você está no módulo de usuários. Escolha uma ação abaixo para prosseguir:</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-12 col-md-4">
+                <a th:href="@{/usuarios/create}">
+                    <div class="d-flex align-items-center text-black p-4 justify-content-center menu-usuarios">
+                        <img class="icons-navegacao mb-0" th:src="@{/img/icons/registro.png}" alt="Cadastrar usuário">
+                        <p class="mb-0 ms-3 fs-4">Cadastrar</p>
+                    </div>
+                </a>
+            </div>
+            <div sec:authorize="hasAnyAuthority('Admin', 'Funcionario')" class="col-12 col-md-4">
+                <a th:href="@{oficinas/buscar}">
+                    <div class="d-flex align-items-center text-black p-4 justify-content-center menu-usuarios">
+                        <img class="icons-navegacao mb-0" th:src="@{/img/icons/lupa_icon.png}" alt="Registrar em oficina">
+                        <p class="mb-0 ms-3 fs-4">Registrar em Oficina</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-12 col-md-4">
+                <a th:href="@{oficinas/buscar}">
+                    <div class="d-flex align-items-center text-black p-4 justify-content-center menu-usuarios">
+                        <img class="icons-navegacao mb-0" th:src="@{/img/icons/lupa_icon.png}" alt="Buscar usuário">
+                        <p class="mb-0 ms-3 fs-4">Buscar Usuário</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</body>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<th:block th:replace="~{/../fragments/head :: head('Cadastrar Usuário do SCFV')}"></th:block>
+
+<script>
+    $(document).ready(function(){
+        $('#nis').mask('000.00000.00-0', {reverse: true});
+        $('#telefone').mask('(00)00000-0000', {reverse: false});
+    });
+</script>
+
+<body>
+    <th:block th:replace="~{/../fragments/head :: header()}"></th:block>
+    <div class="container">
+        <div class="col-md-12 mb-5">
+            <h2 class="mb-4 fw-normal">Cadastrar Usuário</h2>
+            <p class="fs-6">Preencha os campos a seguir para cadastrar um novo usuário do Serviço de Convivência e Fortalecimento de Vínculos:</p>
+        </div>
+
+        <form th:action="@{/usuarios/save}" th:object="${usuario}" method="POST">
+            <div class="form-group row mb-4">
+                <label for="nome" class="col-sm-2 col-form-label">Nome:</label>
+                <div class="col-sm-6">
+                    <input type="text" th:field="*{nome}" class="form-control"
+                        placeholder="Digite o nome do usuário">
+                    <p th:if="${#fields.hasErrors('nome')}" th:errorclass="text-danger" th:errors="*{nome}" />
+                </div>
+            </div>
+
+            <div class="form-group row mb-4">
+                <label for="dataNascimento" class="col-sm-2 col-form-label">Data de nascimento:</label>
+                <div class="col-sm-6">
+                    <input type="date" th:field="*{dataNascimento}" class="form-control">
+                    <p th:if="${#fields.hasErrors('dataNascimento')}" th:errorclass="text-danger" th:errors="*{dataNascimento}" />
+                </div>
+            </div>
+
+            <div class="form-group row mb-4">
+                <label for="nis" class="col-sm-2 col-form-label">NIS:</label>
+                <div class="col-sm-6">
+                    <input type="text" th:field="*{nis}" class="form-control" placeholder="Digite apenas os números do NIS">
+                    <p th:if="${#fields.hasErrors('nis')}" th:errorclass="text-danger" th:errors="*{nis}"/>
+                </div>
+            </div>
+
+            <div class="form-group row mb-4">
+                <label for="nomeResponsavel" class="col-sm-2 col-form-label">Nome do responsável:</label>
+                <div class="col-sm-6">
+                    <input type="text" th:field="*{nomeResponsavel}" class="form-control" placeholder="Digite o nome do responsável">
+                    <p th:if="${#fields.hasErrors('nomeResponsavel')}" th:errorclass="text-danger" th:errors="*{nomeResponsavel}" />
+                </div>
+            </div>
+
+            <div class="form-group row mb-5">
+                <label for="telefone" class="col-sm-2 col-form-label">Telefone:</label>
+                <div class="col-sm-6">
+                    <input type="text" th:field="*{telefone}" class="form-control" placeholder="Digite o telefone">
+                    <p th:if="${#fields.hasErrors('telefone')}" th:errorclass="text-danger" th:errors="*{telefone}" />
+                </div>
+            </div>
+
+            <div class="form-group mb-4">
+                <label for="nomeResponsavel" class="form-label d-block">Faz parte do bolsa família?</label>
+                <div class="d-flex gap-3">
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" th:field="*{bolsaFamilia}" th:value="true" id="bolsaFamiliaSim">
+                        <label for="bolsaFamiliaSim" class="form-check-label">Sim</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" th:field="*{bolsaFamilia}" th:value="false" id="bolsaFamiliaNao">
+                        <label for="bolsaFamiliaNao" class="form-check-label">Não</label>
+                    </div>
+                    <p th:if="${#fields.hasErrors('bolsaFamilia')}" th:errorclass="text-danger" th:errors="*{bolsaFamilia}" />
+                </div>
+            </div>
+
+            <div class="form-group mb-4">
+                <label for="nomeResponsavel" class="form-label d-block">É prioridade? (Exs.: demanda do Conselho Tutelar, ou de instituições de referência - CREAS, CASI, PETI)</label>
+                <div class="d-flex gap-3">
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" th:field="*{prioridade}" th:value="true" id="prioridadeSim">
+                        <label for="prioridadeSim" class="form-check-label">Sim</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" th:field="*{prioridade}" th:value="false" id="prioridadeNao">
+                        <label for="prioridadeNao" class="form-check-label">Não</label>
+                    </div>
+                    <p th:if="${#fields.hasErrors('prioridade')}" th:errorclass="text-danger" th:errors="*{prioridade}" />
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary col-sm-2 mb-4"> Cadastrar Usuário</button>
+        </form>
+    </div>
+</body>

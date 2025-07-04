@@ -14,7 +14,7 @@
 
         <div class="row justify-content-center g-4">
             <div class="col-12 col-md-4">
-                <a href="">
+                <a th:href="@{/usuarios}">
                     <div class="d-flex align-items-center text-black p-4 justify-content-center menu-usuarios">
                         <img class="icons-navegacao mb-0" th:src="@{/img/icons/usuario_icon.png}" alt="Usuários">
                         <p class="mb-0 ms-3 fs-4">Usuários</p>
@@ -22,7 +22,7 @@
                 </a>
             </div>
             <div class="col-12 col-md-4">
-                <a th:href="oficinas">
+                <a th:href="@{/oficinas}">
                     <div class="d-flex align-items-center text-black p-4 justify-content-center menu-oficinas">
                         <img class="icons-navegacao mb-0" th:src="@{/img/icons/oficina_icon.png}" alt="Oficinas">
                         <p class="mb-0 ms-3 fs-4">Oficinas</p>

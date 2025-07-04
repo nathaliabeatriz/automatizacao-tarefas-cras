@@ -1,4 +1,4 @@
-package com.projeto_scfv_cras.ProjetoCRAS.user;
+package com.projeto_scfv_cras.ProjetoCRAS.oficina;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
