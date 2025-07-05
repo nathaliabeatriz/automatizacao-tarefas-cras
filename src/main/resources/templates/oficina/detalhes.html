@@ -13,27 +13,27 @@
 
         <div class="d-flex col-md-12 justify-content-start">
             <div class="col-md-7">
-                <div class="form-group row mb-4">
+                <div class="form-group row mb-3">
                     <label class="col-sm-3 col-form-label">Nome:</label>
                     <div class="col-sm-7">
                         <input type="text" th:value="${oficina.nome}" class="form-control inputs-disabled" disabled>
                     </div>
                 </div>
-                <div class="form-group row mb-4">
+                <div class="form-group row mb-3">
                     <label class="col-sm-3 col-form-label">Quantidade de vagas:</label>
                     <div class="col-sm-7">
                         <input type="number" th:value="${oficina.qtdVagas}" class="form-control inputs-disabled"
                             disabled>
                     </div>
                 </div>
-                <div class="form-group row mb-4">
+                <div class="form-group row mb-3">
                     <label class="col-sm-3 col-form-label">Horário:</label>
                     <div class="col-sm-7">
                         <input type="text" th:value="${oficina.horarioInicio + ' às ' + oficina.horarioTermino}"
                             class="form-control inputs-disabled" disabled>
                     </div>
                 </div>
-                <div class="form-group row mb-4">
+                <div class="form-group row mb-3">
                     <label class="col-sm-3 col-form-label">Dia da semana:</label>
                     <div class="col-sm-7">
                         <input type="text" th:value="${oficina.diaSemana}" class="form-control inputs-disabled"

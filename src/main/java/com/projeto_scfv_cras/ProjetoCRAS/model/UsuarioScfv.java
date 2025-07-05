@@ -1,6 +1,8 @@
 package com.projeto_scfv_cras.ProjetoCRAS.model;
 
 import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -49,4 +51,13 @@ public class UsuarioScfv {
     @NotNull(message = "Campo obrigatório")
     @Column(name = "prioridade")
     private Boolean prioridade;
+
+    public int getIdade(){
+        return Period.between(this.dataNascimento, LocalDate.now()).getYears();
+    }
+
+    public String getDataFormatada(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return this.dataNascimento.format(formatter);   
+    }
 }

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<th:block th:replace="~{/../fragments/head :: head(${usuario.nome})}"></th:block>
+
+<body>
+    <th:block th:replace="~{/../fragments/head :: header()}"></th:block>
+    <div class="container">
+        <div class="col-md-12 mb-5">
+            <h2 class="mb-4 fw-normal" th:text="${usuario.nome}"></h2>
+        </div>
+
+        <div class="d-flex col-md-12 justify-content-start">
+            <div class="col-md-7">
+                <div class="form-group row mb-3">
+                    <label class="col-sm-3 col-form-label">Nome:</label>
+                    <div class="col-sm-7">
+                        <input type="text" th:value="${usuario.nome}" class="form-control inputs-disabled" disabled>
+                    </div>
+                </div>
+                <div class="form-group row mb-3">
+                    <label class="col-sm-3 col-form-label">Data de nascimento:</label>
+                    <div class="col-sm-7">
+                        <input type="text" th:value="${usuario.getDataFormatada()}" class="form-control inputs-disabled"
+                            disabled>
+                    </div>
+                </div>
+                <div class="form-group row mb-3">
+                    <label class="col-sm-3 col-form-label">NIS:</label>
+                    <div class="col-sm-7">
+                        <input type="text" th:value="${usuario.nis}" class="form-control inputs-disabled"
+                            disabled>
+                    </div>
+                </div>
+                <div class="form-group row mb-3">
+                    <label class="col-sm-3 col-form-label">Nome do responsável:</label>
+                    <div class="col-sm-7">
+                        <input type="text" th:value="${usuario.nomeResponsavel}"
+                            class="form-control inputs-disabled" disabled>
+                    </div>
+                </div>
+                <div class="form-group row mb-3">
+                    <label class="col-sm-3 col-form-label">Telefone:</label>
+                    <div class="col-sm-7">
+                        <input type="text" th:value="${usuario.telefone}" class="form-control inputs-disabled"
+                            disabled>
+                    </div>
+                </div>
+                <div class="form-group row mb-3">
+                    <label class="col-sm-3 col-form-label">Bolsa Família?</label>
+                    <div class="col-sm-7">
+                        <input th:if="${usuario.bolsaFamilia == true}" type="text" th:value="Sim" class="form-control inputs-disabled"
+                            disabled>
+                        <input th:unless="${usuario.bolsaFamilia == true}" type="text" th:value="Não" class="form-control inputs-disabled"
+                            disabled>
+                    </div>
+                </div>
+                <div class="form-group row mb-3">
+                    <label class="col-sm-3 col-form-label">Prioridade?</label>
+                    <div class="col-sm-7">
+                        <input th:if="${usuario.prioridade == true}" type="text" th:value="Sim" class="form-control inputs-disabled"
+                            disabled>
+                        <input th:unless="${usuario.prioridade == true}" type="text" th:value="Não" class="form-control inputs-disabled"
+                            disabled>
+                    </div>
+                </div>
+            </div>
+
+            <div sec:authorize="hasAnyAuthority('Admin', 'Funcionario')" class="col-md-5 d-flex flex-column justify-content-start align-items-end gap-4">
+                <a th:href="@{/usuarios/edit/{id} (id=${usuario.id})}" class="btn btn-editar w-50">Editar usuario</a>
+                <a data-bs-toggle="modal" data-bs-target="#confirmarExclusaoModal" class="btn btn-deletar w-50">Deletar usuario</a>
+            </div>
+            <div sec:authorize="hasAnyAuthority('Admin', 'Funcionario')" class="modal fade" id="confirmarExclusaoModal" tabindex="-1" aria-labelledby="tituloModal"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="tituloModal">Confirmar Exclusão</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body" th:text="'Tem certeza que deseja excluir o usuário: ' + ${usuario.nome} + '?'">
+                        </div>
+                        <div class="modal-footer">
+                            <form th:action="@{/usuarios/delete/{id} (id=${usuario.id})}" method="GET">
+                                <input type="hidden" name="_method" value="delete" />
+                                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-deletar">Confirmar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

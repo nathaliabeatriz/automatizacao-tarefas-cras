@@ -7,7 +7,7 @@ import com.projeto_scfv_cras.ProjetoCRAS.model.UsuarioScfv;
 public interface UsuarioScfvService {
     public void saveUsuario(UsuarioScfv usuario);
     List<UsuarioScfv> getAllUsuarios();
-    // List<UsuarioScfv> getUsuarioByNome(String nome);
+    List<UsuarioScfv> getUsuarioByNomeOrNomeResponsavel(String nome);
     UsuarioScfv getUsuarioById(Integer id);
     void deleteUsuarioById(Integer id);
 }

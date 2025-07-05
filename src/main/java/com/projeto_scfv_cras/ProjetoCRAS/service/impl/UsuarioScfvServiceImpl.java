@@ -43,4 +43,9 @@ public class UsuarioScfvServiceImpl implements UsuarioScfvService{
     public void deleteUsuarioById(Integer id){
         usuarioScfvRepository.deleteById(id);
     }
+
+    @Override
+    public List<UsuarioScfv> getUsuarioByNomeOrNomeResponsavel(String nome){
+        return usuarioScfvRepository.findByNomeOrNomeResponsavel(nome);
+    }
 }
