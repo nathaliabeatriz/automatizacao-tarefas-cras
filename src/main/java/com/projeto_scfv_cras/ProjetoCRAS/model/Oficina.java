@@ -1,6 +1,8 @@
 package com.projeto_scfv_cras.ProjetoCRAS.model;
 
 import java.time.LocalTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.projeto_scfv_cras.ProjetoCRAS.validations.HorarioValido;
 
@@ -8,6 +10,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -44,4 +47,7 @@ public class Oficina {
     @NotBlank(message = "Dia da semana é um campo obrigatório")
     @Column(name = "dia_semana")
     private String diaSemana;
+
+    @OneToMany(mappedBy = "oficina")
+    private Set<OficinaUsuario> oficinaUsuarios = new HashSet<>();
 }

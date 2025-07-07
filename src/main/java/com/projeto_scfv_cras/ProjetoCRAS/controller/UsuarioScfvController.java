@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.projeto_scfv_cras.ProjetoCRAS.model.UsuarioScfv;
+import com.projeto_scfv_cras.ProjetoCRAS.service.OficinaUsuarioService;
 import com.projeto_scfv_cras.ProjetoCRAS.service.UsuarioScfvService;
 
 import jakarta.validation.Valid;
@@ -21,6 +23,8 @@ import jakarta.validation.Valid;
 public class UsuarioScfvController {
     @Autowired
     private UsuarioScfvService usuarioScfvService;
+    @Autowired
+    private OficinaUsuarioService oficinaUsuarioService;
 
     @GetMapping("usuarios")
     public String menuUsuarios(){
@@ -62,9 +66,11 @@ public class UsuarioScfvController {
     public String getUsuario(@PathVariable Integer id, Model model){
         UsuarioScfv usuario = usuarioScfvService.getUsuarioById(id);
         model.addAttribute("usuario", usuario);
+        model.addAttribute("registros", oficinaUsuarioService.getByUsuario(usuario));
         return "usuario_scfv/detalhes";
     }
 
+    @Transactional
     @GetMapping("usuarios/delete/{id}")
     public String deletarUsuario(@PathVariable Integer id){
         usuarioScfvService.deleteUsuarioById(id);

@@ -6,15 +6,20 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.projeto_scfv_cras.ProjetoCRAS.model.Oficina;
 import com.projeto_scfv_cras.ProjetoCRAS.repository.OficinaRepository;
+import com.projeto_scfv_cras.ProjetoCRAS.repository.OficinaUsuarioRepository;
 import com.projeto_scfv_cras.ProjetoCRAS.service.OficinaService;
 
 @Service
 public class OficinaServiceImpl implements OficinaService{
     @Autowired 
     private OficinaRepository oficinaRepository;
+
+    @Autowired
+    private OficinaUsuarioRepository oficinaUsuarioRepository;
 
     @Override
     public void saveOficina(Oficina oficina){
@@ -45,7 +50,15 @@ public class OficinaServiceImpl implements OficinaService{
     }
 
     @Override
+    @Transactional
     public void deleteOficinaById(Integer id){
-        oficinaRepository.deleteById(id);
+        Oficina oficina = getOficinaById(id);
+        oficinaUsuarioRepository.deleteByOficina(oficina);
+        oficinaRepository.delete(oficina);
+    }
+
+    @Override
+    public List<Oficina> getOficinasNaoRegistradasAoUsuario(Integer idUsuario, String nome){
+        return oficinaRepository.findOficinasNaoRegistradasAoUsuario(idUsuario, nome, Sort.by("nome").ascending());
     }
 }

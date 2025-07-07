@@ -21,14 +21,6 @@
                     </div>
                 </a>
             </div>
-            <div sec:authorize="hasAnyAuthority('Admin', 'Funcionario')" class="col-12 col-md-4">
-                <a th:href="@{oficinas/buscar}">
-                    <div class="d-flex align-items-center text-black p-4 justify-content-center menu-usuarios">
-                        <img class="icons-navegacao mb-0" th:src="@{/img/icons/lupa_icon.png}" alt="Registrar em oficina">
-                        <p class="mb-0 ms-3 fs-4">Registrar em Oficina</p>
-                    </div>
-                </a>
-            </div>
             <div class="col-12 col-md-4">
                 <a th:href="@{/usuarios/buscar}">
                     <div class="d-flex align-items-center text-black p-4 justify-content-center menu-usuarios">

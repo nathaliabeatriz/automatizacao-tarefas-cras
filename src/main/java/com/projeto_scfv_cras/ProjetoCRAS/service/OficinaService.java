@@ -7,8 +7,9 @@ import com.projeto_scfv_cras.ProjetoCRAS.model.Oficina;
 
 public interface OficinaService {
     public void saveOficina(Oficina oficina);
-    List<Oficina> getAllOficinas();
-    List<Oficina> getOficinaByNome(String nome);
-    Oficina getOficinaById(Integer id);
-    void deleteOficinaById(Integer id);
+    public List<Oficina> getAllOficinas();
+    public List<Oficina> getOficinaByNome(String nome);
+    public Oficina getOficinaById(Integer id);
+    public void deleteOficinaById(Integer id);
+    public List<Oficina> getOficinasNaoRegistradasAoUsuario(Integer idUsuario, String nome);
 }

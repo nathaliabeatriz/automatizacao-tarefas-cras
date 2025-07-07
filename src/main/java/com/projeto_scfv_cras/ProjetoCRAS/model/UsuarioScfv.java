@@ -3,11 +3,14 @@ package com.projeto_scfv_cras.ProjetoCRAS.model;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -51,6 +54,9 @@ public class UsuarioScfv {
     @NotNull(message = "Campo obrigatório")
     @Column(name = "prioridade")
     private Boolean prioridade;
+
+    @OneToMany(mappedBy = "usuario")
+    private Set<OficinaUsuario> usarioOficinas = new HashSet<>();
 
     public int getIdade(){
         return Period.between(this.dataNascimento, LocalDate.now()).getYears();
