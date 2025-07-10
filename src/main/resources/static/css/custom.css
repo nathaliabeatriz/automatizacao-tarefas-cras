@@ -9,6 +9,10 @@ a{
     text-decoration: none;
 }
 
+body{
+    height: 100%;;
+}
+
 .card-form{
     width: 30%;
 }
@@ -32,7 +36,12 @@ a{
 }
 
 .header{
-    background: #B06749;
+    background: #7F4933;
+    height: 10vh;
+}
+
+.footer{
+    background: #CECFD1;
     height: 10vh;
 }
 
@@ -45,7 +54,7 @@ a{
 }
 
 .div-menu{
-    background-color: #1E1F21;
+    background-color: #130a0a;
     color: #ffffff;
 }
 
@@ -129,6 +138,21 @@ input.form-control.inputs-disabled{
 .btn-cancelar:hover{
     background-color: #46474c;
     color: #ffffff;
+}
+
+.btn-logout{
+    width: 100%;
+    border: 2px solid #5b3627;
+    color: white;
+}
+
+.btn-logout:hover{
+    color: white;
+    background: #5b3627;
+}
+
+.nav-item:hover{
+    background-color: #5b3627;
 }
 
 @media(max-width: 800px){

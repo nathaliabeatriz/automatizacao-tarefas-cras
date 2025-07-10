@@ -4,9 +4,9 @@
 
 <th:block th:replace="~{/../fragments/head :: head('Registrar em Oficina')}"></th:block>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <th:block th:replace="~{/../fragments/head :: header()}"></th:block>
-    <div class="container">
+    <div class="container flex-grow-1">
         <div class="col-md-12 mb-5">
             <h2 class="mb-4 fw-normal" th:text="${'Registrar ' + usuario.nome}"></h2>
             <p class="fs-6">Utilize o campo de filtro abaixo para buscar por uma oficina através do nome e clique no botão para registrar o usuário nas oficinas desejadas:</p>
@@ -45,4 +45,5 @@
             </table>
         </div>
     </div>
+    <th:block th:replace="~{/../fragments/footer :: footer()}"></th:block>
 </body>

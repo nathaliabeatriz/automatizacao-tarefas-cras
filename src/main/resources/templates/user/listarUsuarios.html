@@ -3,9 +3,9 @@
 
 <th:block th:replace="~{/../fragments/head :: head('Validar Usuários')}"></th:block>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <th:block th:replace="~{/../fragments/head :: header()}"></th:block>
-    <div class="container">
+    <div class="container flex-grow-1">
         <h3 class="mb-4 fw-normal">Validar Usuários</h3>
         <table class="table table-striped">
             <thead>
@@ -43,6 +43,7 @@
             </tbody>
         </table>
     </div>
+    <th:block th:replace="~{/../fragments/footer :: footer()}"></th:block>
 </body>
 
 </html>

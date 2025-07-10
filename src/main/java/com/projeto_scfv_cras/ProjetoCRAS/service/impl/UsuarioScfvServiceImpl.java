@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.projeto_scfv_cras.ProjetoCRAS.model.UsuarioScfv;
 import com.projeto_scfv_cras.ProjetoCRAS.repository.OficinaUsuarioRepository;
 import com.projeto_scfv_cras.ProjetoCRAS.repository.UsuarioScfvRepository;
@@ -43,6 +45,7 @@ public class UsuarioScfvServiceImpl implements UsuarioScfvService{
     }
 
     @Override
+    @Transactional
     public void deleteUsuarioById(Integer id){
         UsuarioScfv usuario = getUsuarioById(id);
         oficinaUsuarioRepository.deleteByUsuario(usuario);

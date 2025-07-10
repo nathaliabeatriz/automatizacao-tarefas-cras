@@ -1,1 +1,17 @@
-<p>Você não tem acesso</p>
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http:/www.thymeleaf.org">
+
+<th:block th:replace="~{/../fragments/head :: head('Acesso Negado')}"></th:block>
+
+<body class="d-flex flex-column min-vh-100">
+    <th:block th:replace="~{/../fragments/head :: header}"></th:block>
+    <div class="text-center flex-grow-1">
+        <h1 class="display-1 text-danger">403</h1>
+        <p class="lead">Acesso Negado</p>
+        <p class="mb-4">Você não tem permissão para acessar este recurso.</p>
+        <div class="d-flex justify-content-center">
+            <a href="/" class="btn btn-primary mr-2">Voltar para a Página Inicial</a>
+        </div>
+    </div>
+    <th:block th:replace="~{/../fragments/footer :: footer()}"></th:block>
+</body>

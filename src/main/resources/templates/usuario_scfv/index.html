@@ -4,9 +4,9 @@
 
 <th:block th:replace="~{/../fragments/head :: head('Usuários')}"></th:block>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <th:block th:replace="~{/../fragments/head :: header()}"></th:block>
-    <div class="container">
+    <div class="container flex-grow-1">
         <div class="col-md-12 mb-5">
             <h2 class="mb-4 fw-normal">Usuários</h2>
             <p class="fs-6">Você está no módulo de usuários. Escolha uma ação abaixo para prosseguir:</p>
@@ -32,4 +32,5 @@
         </div>
 
     </div>
+    <th:block th:replace="~{/../fragments/footer :: footer()}"></th:block>
 </body>
