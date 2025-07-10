@@ -81,14 +81,14 @@
                 <thead>
                     <tr>
                         <th class="fw-bold">Nome</th>
-                        <th class="fw-bold" style="width: 15%;">Deletar registro</th>
+                        <th sec:authorize="hasAnyAuthority('Admin', 'Funcionario')" class="fw-bold" style="width: 15%;">Deletar registro</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr style="cursor: pointer;" th:each="registro : ${registros}"
                         th:onclick="'window.location.href=\'/oficinas/detalhes/' + ${registro.oficina.id} + '\''">
                         <td th:text="${registro.oficina.nome}"></td>
-                        <td>
+                        <td sec:authorize="hasAnyAuthority('Admin', 'Funcionario')">
                             <a data-bs-toggle="modal"
                                 th:attr="data-bs-target='#confirmarExclusaoRegistroModal-' + ${registro.oficina.id}"
                                 class="btn btn-deletar" onclick="event.stopPropagation()"

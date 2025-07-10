@@ -80,7 +80,7 @@
                     <tr>
                         <th class="fw-bold">Nome</th>
                         <th class="fw-bold">Idade</th>
-                        <th class="fw-bold" style="width: 15%;">Deletar registro</th>
+                        <th sec:authorize="hasAnyAuthority('Admin', 'Funcionario')" class="fw-bold" style="width: 15%;">Deletar registro</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -88,7 +88,7 @@
                         th:onclick="'window.location.href=\'/usuarios/detalhes/' + ${registro.usuario.id} + '\''">
                         <td th:text="${registro.usuario.nome}"></td>
                         <td th:text="${registro.usuario.getIdade() + ' anos'}"></td>
-                        <td>
+                        <td sec:authorize="hasAnyAuthority('Admin', 'Funcionario')">
                             <a data-bs-toggle="modal"
                                 th:attr="data-bs-target='#confirmarExclusaoRegistroModal-' + ${registro.usuario.id}"
                                 class="btn btn-deletar" onclick="event.stopPropagation()"

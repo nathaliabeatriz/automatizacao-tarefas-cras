@@ -149,8 +149,9 @@ public class OficinaControllerTest {
                .andExpect(status().isOk())
                .andExpect(view().name("oficina/detalhes"))
 
-               .andExpect(content().string(not(containsString("<a th:href=\"@{/oficinas/edit/{id} (id=${oficina.id})}\" class=\"btn btn-editar w-50\">Editar Oficina</a>\r\n" + //
-                                      "                <a data-bs-toggle=\"modal\" data-bs-target=\"#confirmarExclusaoModal\" class=\"btn btn-deletar w-50\">Deletar Oficina</a>"))));
+               .andExpect(content().string(not(containsString("Editar Oficina"))))
+               .andExpect(content().string(not(containsString("Deletar Oficina"))))
+               .andExpect(content().string(not(containsString("Registrar Usuários"))));
 
         verify(oficinaService).getOficinaById(1);
     }
