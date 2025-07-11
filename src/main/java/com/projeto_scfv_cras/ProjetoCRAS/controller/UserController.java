@@ -46,7 +46,7 @@ public class UserController {
     @GetMapping("/login")
     public String login(Authentication authenticaton){
         if(authenticaton != null && authenticaton.isAuthenticated()){
-            return "redirect:home";
+            return "redirect:/";
         }
         return "/login";
     }

@@ -48,6 +48,9 @@ public class Oficina {
     @Column(name = "dia_semana")
     private String diaSemana;
 
+    @Column(name = "vagas_ocupadas")
+    private int vagasOcupadas;
+
     @OneToMany(mappedBy = "oficina")
     private Set<OficinaUsuario> oficinaUsuarios = new HashSet<>();
 }

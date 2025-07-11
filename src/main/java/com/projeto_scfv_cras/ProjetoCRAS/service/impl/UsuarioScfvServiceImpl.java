@@ -8,7 +8,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.projeto_scfv_cras.ProjetoCRAS.model.Oficina;
+import com.projeto_scfv_cras.ProjetoCRAS.model.OficinaUsuario;
 import com.projeto_scfv_cras.ProjetoCRAS.model.UsuarioScfv;
+import com.projeto_scfv_cras.ProjetoCRAS.repository.OficinaRepository;
 import com.projeto_scfv_cras.ProjetoCRAS.repository.OficinaUsuarioRepository;
 import com.projeto_scfv_cras.ProjetoCRAS.repository.UsuarioScfvRepository;
 import com.projeto_scfv_cras.ProjetoCRAS.service.UsuarioScfvService;
@@ -20,6 +23,9 @@ public class UsuarioScfvServiceImpl implements UsuarioScfvService{
 
     @Autowired
     private OficinaUsuarioRepository oficinaUsuarioRepository;
+
+    @Autowired
+    private OficinaRepository oficinaRepository;
 
     @Override
     public void saveUsuario(UsuarioScfv usuario){
@@ -48,6 +54,12 @@ public class UsuarioScfvServiceImpl implements UsuarioScfvService{
     @Transactional
     public void deleteUsuarioById(Integer id){
         UsuarioScfv usuario = getUsuarioById(id);
+        List<OficinaUsuario> registros = oficinaUsuarioRepository.findByUsuario(usuario);
+        for(OficinaUsuario r : registros){
+            Oficina oficina = r.getOficina();
+            oficina.setVagasOcupadas(oficina.getVagasOcupadas() - 1);
+            oficinaRepository.save(oficina);
+        }
         oficinaUsuarioRepository.deleteByUsuario(usuario);
         usuarioScfvRepository.delete(usuario);
     }

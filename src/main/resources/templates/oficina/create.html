@@ -63,6 +63,7 @@
                 </div>
             </div>
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <input type="hidden" th:field="*{vagasOcupadas}" th:value="0">
             <button type="submit" class="btn btn-primary col-sm-2 mb-4"> Cadastrar Oficina</button>
         </form>
     </div>
