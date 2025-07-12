@@ -20,8 +20,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 
+import com.projeto_scfv_cras.ProjetoCRAS.model.CategoriaOficina;
 import com.projeto_scfv_cras.ProjetoCRAS.model.Oficina;
 import com.projeto_scfv_cras.ProjetoCRAS.model.UsuarioScfv;
+import com.projeto_scfv_cras.ProjetoCRAS.repository.CategoriaOficinaRepository;
 import com.projeto_scfv_cras.ProjetoCRAS.repository.OficinaRepository;
 import com.projeto_scfv_cras.ProjetoCRAS.repository.OficinaUsuarioRepository;
 import com.projeto_scfv_cras.ProjetoCRAS.repository.UsuarioScfvRepository;
@@ -43,9 +45,11 @@ public class IntegrationTest {
     @Autowired
     private OficinaUsuarioRepository oficinaUsuarioRepository;
 
+    @Autowired
+    private CategoriaOficinaRepository categoriaOficinaRepository;
+
     private UsuarioScfv createUsuario(){
         UsuarioScfv usuario = new UsuarioScfv();
-        usuario.setId(1);
         usuario.setNome("Usuário A");
         usuario.setNis("111.111.111-11");
         usuario.setDataNascimento(LocalDate.of(2016, 6, 30));
@@ -59,14 +63,24 @@ public class IntegrationTest {
 
     private Oficina createOficina(){
         Oficina oficina = new Oficina();
-        oficina.setId(1);
+        CategoriaOficina categoria = createCategoria();
         oficina.setNome("Oficina A");
         oficina.setQtdVagas(10);
         oficina.setHorarioInicio(LocalTime.of(10, 0));
         oficina.setHorarioTermino(LocalTime.of(11, 0));
         oficina.setDiaSemana("Segunda");
+        oficina.setVagasOcupadas(0);
+        oficina.setCategoria(categoria);
 
         return oficina;
+    }
+
+    private CategoriaOficina createCategoria(){
+        CategoriaOficina categoria = new CategoriaOficina();
+        categoria.setNome("Categoria A");
+        categoria.setDescricao("Descrição");
+
+        return categoria;
     }
     
     @Test
@@ -88,6 +102,16 @@ public class IntegrationTest {
     @WithMockUser(authorities = { "Funcionario" })
     void testSaveOficinaIntegration() throws Exception{
         Oficina oficina = createOficina();
+        CategoriaOficina categoria = createCategoria();
+        mockMvc.perform(post("/categorias/save")
+                .with(csrf())
+                .flashAttr("categoria", categoria));
+
+        CategoriaOficina categoriaSalva = categoriaOficinaRepository
+            .findByNome("Categoria A");
+        
+        oficina.setCategoria(categoriaSalva);
+
         mockMvc.perform(post("/oficinas/save")
                 .with(csrf())
                 .flashAttr("oficina", oficina))
@@ -104,6 +128,16 @@ public class IntegrationTest {
     void testSaveRegistroOficinaUsuarioIntegration() throws Exception{
         Oficina oficina = createOficina();
         UsuarioScfv usuarioScfv = createUsuario();
+        CategoriaOficina categoria = createCategoria();
+        mockMvc.perform(post("/categorias/save")
+                .with(csrf())
+                .flashAttr("categoria", categoria));
+
+        CategoriaOficina categoriaSalva = categoriaOficinaRepository
+            .findByNome("Categoria A");
+        
+        oficina.setCategoria(categoriaSalva);
+
         mockMvc.perform(post("/oficinas/save")
                 .with(csrf())
                 .flashAttr("oficina", oficina));
@@ -114,10 +148,25 @@ public class IntegrationTest {
                 
         mockMvc.perform(get("/registros/registrarUsuario/{idOficina}/{idUsuario}/{flag}", oficina.getId(), usuarioScfv.getId(), "oficina"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/registros/listOficinas/" + usuarioScfv.getId()));
+                .andExpect(redirectedUrl("/registros/listOficinas/" + usuarioScfv.getId() + "?msg=ok"));
 
         assertTrue(oficinaUsuarioRepository.findAll()
                 .stream()
                 .anyMatch(o -> "Oficina A".equals(o.getOficina().getNome()) && "Usuário A".equals(o.getUsuario().getNome())));
+    }
+
+    @Test
+    @WithMockUser(authorities = { "Funcionario" })
+    void testSaveCategoriaIntegration() throws Exception{
+        CategoriaOficina categoriaOficina = createCategoria();
+        mockMvc.perform(post("/categorias/save")
+                .with(csrf())
+                .flashAttr("categoria", categoriaOficina))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/categorias"));
+
+        assertTrue(categoriaOficinaRepository.findAll()
+                .stream()
+                .anyMatch(c -> "Categoria A".equals(c.getNome())));
     }
 }

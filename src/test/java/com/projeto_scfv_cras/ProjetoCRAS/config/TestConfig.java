@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.projeto_scfv_cras.ProjetoCRAS.service.CategoriaOficinaService;
 import com.projeto_scfv_cras.ProjetoCRAS.service.OficinaService;
 import com.projeto_scfv_cras.ProjetoCRAS.service.OficinaUsuarioService;
 import com.projeto_scfv_cras.ProjetoCRAS.service.UserService;
@@ -46,5 +47,10 @@ public class TestConfig {
     @Bean
     public OficinaUsuarioService oficinaUsuarioService(){
         return Mockito.mock(OficinaUsuarioService.class);
+    }
+
+    @Bean
+    public CategoriaOficinaService categoriaOficinaService(){
+        return Mockito.mock(CategoriaOficinaService.class);
     }
 }

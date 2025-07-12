@@ -37,6 +37,7 @@ public class SecurityConfig {
 				.requestMatchers("/usuarios/editar/*", "/usuarios/delete/*").hasAnyAuthority("Admin", "Funcionario")
 				.requestMatchers("/usuarios/**").hasAnyAuthority("Admin", "Funcionario", "Tecnico")
 				.requestMatchers("/registros/**").hasAnyAuthority("Admin", "Funcionario")
+				.requestMatchers("/categorias/**").hasAnyAuthority("Admin", "Funcionario")
                 .anyRequest().authenticated())
                 .formLogin(form -> form
 					.loginPage("/login")

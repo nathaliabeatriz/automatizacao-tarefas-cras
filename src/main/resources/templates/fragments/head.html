@@ -50,6 +50,11 @@
                         Validar Usuários do Sistema
                     </a>
                 </li>
+                <li class="nav-item mb-2 p-2" sec:authorize="hasAnyAuthority('Admin', 'Funcionario')">
+                    <a class="nav-link" th:href="@{/categorias}">
+                        Categorias de Oficinas
+                    </a>
+                </li>
 
                 <div class="mt-auto pt-3">
                     <form action="/logout" method="post">

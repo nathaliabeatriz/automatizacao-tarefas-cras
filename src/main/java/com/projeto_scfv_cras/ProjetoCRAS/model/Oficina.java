@@ -10,6 +10,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
@@ -53,4 +55,9 @@ public class Oficina {
 
     @OneToMany(mappedBy = "oficina")
     private Set<OficinaUsuario> oficinaUsuarios = new HashSet<>();
+
+    @NotNull(message = "Categoria é um campo obrigatório")
+    @ManyToOne
+    @JoinColumn(name = "id_categoria")
+    private CategoriaOficina categoria;
 }

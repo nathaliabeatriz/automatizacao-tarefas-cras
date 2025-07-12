@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<th:block th:replace="~{/../fragments/head :: head('Editar Categoria')}"></th:block>
+
+<body class="d-flex flex-column min-vh-100">
+    <th:block th:replace="~{/../fragments/head :: header()}"></th:block>
+    <div class="container flex-grow-1">
+        <div class="col-md-12 mb-5">
+            <h2 class="mb-4 fw-normal">Editar Categoria de Oficina</h2>
+            <p class="fs-6">Preencha os campos a seguir para editar a categoria:</p>
+        </div>
+
+        <form th:action="@{/categorias/save}" th:object="${categoria}" method="POST">
+            <input type="hidden" th:field="*{id}">
+            <div class="form-group row mb-4">
+                <label for="nome" class="col-sm-2 col-form-label">Nome:</label>
+                <div class="col-sm-6">
+                    <input type="text" th:field="*{nome}" class="form-control"
+                        placeholder="Digite o nome da categoria">
+                    <p th:if="${#fields.hasErrors('nome')}" th:errorclass="text-danger" th:errors="*{nome}" />
+                </div>
+            </div>
+
+            <div class="form-group row mb-4">
+                <label for="descricao" class="col-sm-2 col-form-label">Descrição:</label>
+                <div class="col-sm-6">
+                    <textarea class="form-control" th:field="*{descricao}" placeholder="Digite a descrição da categoria"></textarea>
+                    <p th:if="${#fields.hasErrors('descricao')}" th:errorclass="text-danger" th:errors="*{descricao}" />
+                </div>
+            </div>
+
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <button type="submit" class="btn btn-primary col-sm-2 mb-4"> Editar Categoria</button>
+        </form>
+    </div>
+    <th:block th:replace="~{/../fragments/footer :: footer()}"></th:block>
+</body>

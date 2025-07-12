@@ -25,6 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.hamcrest.Matchers.containsString;
 import com.projeto_scfv_cras.ProjetoCRAS.config.TestConfig;
 import com.projeto_scfv_cras.ProjetoCRAS.controller.OficinaUsuarioController;
+import com.projeto_scfv_cras.ProjetoCRAS.model.CategoriaOficina;
 import com.projeto_scfv_cras.ProjetoCRAS.model.Oficina;
 import com.projeto_scfv_cras.ProjetoCRAS.model.UsuarioScfv;
 import com.projeto_scfv_cras.ProjetoCRAS.service.OficinaService;
@@ -65,12 +66,16 @@ public class OficinaUsuarioControllerTest {
 
     private Oficina createOficina(){
         Oficina oficina = new Oficina();
+        CategoriaOficina categoria = new CategoriaOficina();
+        categoria.setNome("Categoria A");
         oficina.setId(1);
         oficina.setNome("Oficina A");
         oficina.setQtdVagas(10);
         oficina.setHorarioInicio(LocalTime.of(10, 0));
         oficina.setHorarioTermino(LocalTime.of(11, 0));
         oficina.setDiaSemana("Segunda");
+        oficina.setCategoria(categoria);
+        oficina.setVagasOcupadas(0);
 
         return oficina;
     }
@@ -98,7 +103,7 @@ public class OficinaUsuarioControllerTest {
 
         mockMvc.perform(get("/registros/registrarUsuario/{idOficina}/{idUsuario}/{flag}", oficina.getId(), usuarioScfv.getId(), "oficina"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/registros/listOficinas/" + usuarioScfv.getId()));
+                .andExpect(view().name("redirect:/registros/listOficinas/" + usuarioScfv.getId() + "?msg=erro"));
 
         verify(oficinaUsuarioService).registrarUsuarioEmOficina(null, null);
     }

@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.projeto_scfv_cras.ProjetoCRAS.model.CategoriaOficina;
 import com.projeto_scfv_cras.ProjetoCRAS.model.Oficina;
 import com.projeto_scfv_cras.ProjetoCRAS.repository.OficinaRepository;
 import com.projeto_scfv_cras.ProjetoCRAS.repository.OficinaUsuarioRepository;
@@ -60,5 +61,16 @@ public class OficinaServiceImpl implements OficinaService{
     @Override
     public List<Oficina> getOficinasNaoRegistradasAoUsuario(Integer idUsuario, String nome){
         return oficinaRepository.findOficinasNaoRegistradasAoUsuario(idUsuario, nome, Sort.by("nome").ascending());
+    }
+
+    @Override
+    public void deleteByCategoria(CategoriaOficina categoria){
+        List<Oficina> oficinas = oficinaRepository.findByCategoria(categoria);
+
+        for(Oficina o : oficinas){
+            oficinaUsuarioRepository.deleteByOficina(o);
+        }
+        
+        oficinaRepository.deleteByCategoria(categoria);
     }
 }

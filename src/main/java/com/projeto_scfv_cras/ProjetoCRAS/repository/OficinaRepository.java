@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.projeto_scfv_cras.ProjetoCRAS.model.CategoriaOficina;
 import com.projeto_scfv_cras.ProjetoCRAS.model.Oficina;
 
 @Repository
@@ -19,4 +20,7 @@ public interface OficinaRepository extends JpaRepository<Oficina, Integer>{
         AND LOWER(o.nome) LIKE LOWER(CONCAT(:nome, '%'))
     """)
     List<Oficina> findOficinasNaoRegistradasAoUsuario(Integer idUsuario, String nome, Sort sort);
+
+    void deleteByCategoria(CategoriaOficina categoria);
+    List<Oficina> findByCategoria(CategoriaOficina categoria);
 } 

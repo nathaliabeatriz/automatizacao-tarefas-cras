@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.projeto_scfv_cras.ProjetoCRAS.model.CategoriaOficina;
 import com.projeto_scfv_cras.ProjetoCRAS.model.Oficina;
+import com.projeto_scfv_cras.ProjetoCRAS.service.CategoriaOficinaService;
 import com.projeto_scfv_cras.ProjetoCRAS.service.OficinaService;
 import com.projeto_scfv_cras.ProjetoCRAS.service.OficinaUsuarioService;
 
@@ -24,6 +26,8 @@ public class OficinaController {
     private OficinaService oficinaService;
     @Autowired
     private OficinaUsuarioService oficinaUsuarioService;
+    @Autowired
+    private CategoriaOficinaService categoriaOficinaService;
 
     @GetMapping("oficinas")
     public String menuOficinas(){
@@ -32,7 +36,9 @@ public class OficinaController {
 
     @GetMapping("oficinas/create")
     public String create(Model model){
+        List<CategoriaOficina> categorias = categoriaOficinaService.getAllCategorias();
         model.addAttribute("oficina", new Oficina());
+        model.addAttribute("categorias", categorias);
         return "oficina/create";
     }
 
@@ -60,13 +66,16 @@ public class OficinaController {
     @GetMapping("oficinas/edit/{id}")
     public String editarOficina(@PathVariable Integer id, Model model){
         Oficina oficina = oficinaService.getOficinaById(id);
+        List<CategoriaOficina> categorias = categoriaOficinaService.getAllCategorias();
         model.addAttribute("oficina", oficina);
+        model.addAttribute("categorias", categorias);
         return "oficina/edit";
     }
 
     @PostMapping("oficinas/save")
-    public String salvarOficina(@ModelAttribute @Valid Oficina oficina, BindingResult result){
+    public String salvarOficina(@ModelAttribute @Valid Oficina oficina, BindingResult result, Model model){
         if(result.hasErrors()){
+            model.addAttribute("categorias", categoriaOficinaService.getAllCategorias());
             if(oficina.getId() != null){
                 return "oficina/edit";
             }

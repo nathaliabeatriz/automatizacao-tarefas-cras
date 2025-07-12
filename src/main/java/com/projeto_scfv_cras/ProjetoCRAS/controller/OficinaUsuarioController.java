@@ -74,13 +74,8 @@ public class OficinaUsuarioController {
         Oficina oficina = oficinaService.getOficinaById(idOficina);
 
         String msg;
-        if(oficina.getVagasOcupadas() < oficina.getQtdVagas()){
-            oficinaUsuarioService.registrarUsuarioEmOficina(oficina, usuario);
-            oficina.setVagasOcupadas(oficina.getVagasOcupadas() + 1);
-            oficinaService.saveOficina(oficina);
-            msg = "ok";
-
-        } else msg = "erro";
+        if(oficinaUsuarioService.registrarUsuarioEmOficina(oficina, usuario)) msg = "ok";
+        else msg = "erro";
 
         if(flag.equals("oficina")){
             return "redirect:/registros/listOficinas/" + idUsuario + "?msg=" + msg;
@@ -94,8 +89,6 @@ public class OficinaUsuarioController {
         Oficina oficina = oficinaService.getOficinaById(idOficina);
         
         oficinaUsuarioService.deleteByUsuarioAndOficina(oficina, usuario);
-        oficina.setVagasOcupadas(oficina.getVagasOcupadas() - 1);
-        oficinaService.saveOficina(oficina);
 
         if(flag.equals("usuario")){
             return "redirect:/usuarios/detalhes/" + idUsuario;
